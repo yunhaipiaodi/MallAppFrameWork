@@ -11,7 +11,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class LoginPicServiceFactory extends BasicFactory{
-
     public LoginPicService create(){
         return super.retrofit.create(LoginPicService.class);
     }
