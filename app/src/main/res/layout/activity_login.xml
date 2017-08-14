@@ -8,19 +8,19 @@
             type="com.guangzhou.wendy.mallappframework.viewmodel.BaseObservable.LoginViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.guangzhou.wendy.mallappframework.view.Activity.LoginActivity"
         tools:ignore="GradleDependency">
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/my_image_view"
-            android:layout_width="368dp"
-            android:layout_height="495dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="fitXY"
             tools:load_image="@{loginViewData.picUrl}"
             tools:layout_editor_absoluteY="8dp"
             tools:layout_editor_absoluteX="8dp"
             tools:ignore="MissingConstraints" />
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>

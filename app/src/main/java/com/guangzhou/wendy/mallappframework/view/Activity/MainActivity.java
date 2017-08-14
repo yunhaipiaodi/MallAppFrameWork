@@ -1,47 +1,102 @@
 package com.guangzhou.wendy.mallappframework.view.Activity;
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.Menu;
+import android.view.View;
 
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
+import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import com.guangzhou.wendy.mallappframework.R;
+import com.guangzhou.wendy.mallappframework.view.Adapter.SelectPageAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-
-    };
+    Toolbar toolbar;
+    ViewPager selectPage;
+    AHBottomNavigation bottomNavigation;
+    SelectPageAdapter selectPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        setContentView(R.layout.activity_test);
+        setTitle("商城");
+        init();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main_toolbar,menu);
+        return true;
+    }
+
+    private void init(){
+        setToolbar();
+        setSelectPage();
+        setBottomNavigation();
+    }
+
+    private void setToolbar(){
+        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    private void setSelectPage(){
+        selectPage = (ViewPager)findViewById(R.id.select_page);
+        selectPageAdapter = new SelectPageAdapter(getSupportFragmentManager());
+        selectPage.setAdapter(selectPageAdapter);
+        selectPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                bottomNavigation.setCurrentItem(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    private void setBottomNavigation(){
+        bottomNavigation= (AHBottomNavigation) findViewById(R.id.bottom_navigation);
+        //设置选项菜单
+        AHBottomNavigationAdapter navigationAdapter = new AHBottomNavigationAdapter(this,R.menu.navigation);
+        navigationAdapter.setupWithBottomNavigation(bottomNavigation);
+        //设置背景色(这一步也可以省略,AHBottomNavigation默认会去获取accentColor)
+        bottomNavigation.setBackgroundColor(fetchAccentColor());
+        //设置选项监听
+        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+            @Override
+            public boolean onTabSelected(int position, boolean wasSelected) {
+                selectPage.setCurrentItem(position);
+                return true;
+            }
+        });
+    }
+
+
+    //获得ccentColor
+    private int fetchAccentColor() {
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorAccent });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        return color;
+    }
 }

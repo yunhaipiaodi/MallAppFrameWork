@@ -26,7 +26,8 @@
             android:theme="@style/NoTitleTheme" />
         <activity
             android:name=".view.Activity.MainActivity"
-            android:label="@string/title_activity_main"></activity>
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

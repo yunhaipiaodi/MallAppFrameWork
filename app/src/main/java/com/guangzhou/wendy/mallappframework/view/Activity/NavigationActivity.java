@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.guangzhou.wendy.mallappframework.R;
