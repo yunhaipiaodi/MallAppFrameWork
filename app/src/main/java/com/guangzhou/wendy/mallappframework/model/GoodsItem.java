@@ -12,5 +12,6 @@ public class GoodsItem implements Serializable {
     @SerializedName("id") public String id = "";
     @SerializedName("name") public String name = "";
     @SerializedName("price") public String price = "";
+    @SerializedName("pic_url") public String picUrl = "";
     @SerializedName("goods_type_id") public String goods_type_id = "";
 }

@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="goodsItemViewModel"
             type="com.guangzhou.wendy.mallappframework.viewmodel.BaseObservable.GoodsItemViewModel"/>
     </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/my_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:load_image="@{goodsItemViewModel.picUrl}"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:ignore="MissingConstraints" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/colorPrimaryDark"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="韩国棒子"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="16dp"
-        android:textAppearance="?attr/textAppearanceSearchResultTitle"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rmb_mark"
-            android:layout_marginLeft="16dp"
-            android:textColor="@color/colorAccent"
-            android:textSize="24dp"
-            android:text="￥"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/price_text"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@id/rmb_mark"
-            android:textColor="@color/colorAccent"
-            android:textSize="24dp"
-            android:text="25"/>
+        android:background="#ffffff"
+        android:id="@+id/item_container">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/goods_picture"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                fresco:viewAspectRatio="1.33"
+                tools:load_image="@{goodsItemViewModel.picUrl}"
+                />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add_shopping_cart"
-            android:src="@drawable/ic_add_shopping_cart_black_24dp"
-            android:background="?android:selectableItemBackground"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="24dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/goods_name"
+                android:text="@{goodsItemViewModel.name}"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:layout_below="@id/goods_picture"
+                android:layout_marginTop="8dp" />
+
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:id="@+id/add_shopping_cart"
+                android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                android:background="?android:selectableItemBackground"
+                android:layout_below="@id/goods_name"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rmb_mark"
+                android:padding="8dp"
+                android:layout_alignBottom="@id/add_shopping_cart"
+                android:textColor="@color/colorAccent"
+                android:text="￥"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/price_text"
+                android:layout_toRightOf="@id/rmb_mark"
+                android:layout_toLeftOf="@+id/add_shopping_cart"
+                android:layout_alignBottom="@id/rmb_mark"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/colorAccent"
+                android:text="@{goodsItemViewModel.price}"
+                tools:ignore="RelativeOverlap" />
+
     </RelativeLayout>
-</LinearLayout>
 </layout>

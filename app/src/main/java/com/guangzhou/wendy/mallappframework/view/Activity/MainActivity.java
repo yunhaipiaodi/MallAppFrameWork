@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         selectPage = (ViewPager)findViewById(R.id.select_page);
         selectPageAdapter = new SelectPageAdapter(getSupportFragmentManager());
         selectPage.setAdapter(selectPageAdapter);
+        selectPage.setOffscreenPageLimit(4);
         selectPage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

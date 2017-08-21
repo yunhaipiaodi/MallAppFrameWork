@@ -72,7 +72,7 @@ public class LoginViewModel extends BaseObservable{
 
     @BindingAdapter("load_image")
     public static void loadImage(SimpleDraweeView view, String url){
-        Log.d(TAG,"loadImage,url:" +url);
+        //Log.d(TAG,"loadImage,url:" +url);
         Uri uri = Uri.parse(url);
         view.setImageURI(uri);
     }

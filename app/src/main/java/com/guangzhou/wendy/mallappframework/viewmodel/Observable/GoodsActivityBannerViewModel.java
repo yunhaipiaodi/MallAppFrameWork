@@ -4,10 +4,7 @@ import android.content.Context;
 
 import com.guangzhou.wendy.mallappframework.model.Banner;
 import com.guangzhou.wendy.mallappframework.model.BannerItem;
-import com.guangzhou.wendy.mallappframework.model.NavBannerItem;
-import com.guangzhou.wendy.mallappframework.model.NavigationBanner;
 import com.guangzhou.wendy.mallappframework.web.RetorfitServiceFactory.BannerFactory;
-import com.guangzhou.wendy.mallappframework.web.RetorfitServiceFactory.NavBannerFactory;
 
 import java.util.List;
 import java.util.Observable;
@@ -19,17 +16,17 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by yunhaipiaodi on 2017/8/17.
+ * Created by yunhaipiaodi on 2017/8/21.
  */
 
-public class BannerViewModel extends Observable {
+public class GoodsActivityBannerViewModel extends Observable {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private List<BannerItem> Banners;
     private Context context;
 
-    private String requestUrl = "http://120.24.61.188:9999/getBanner.php";
+    private String requestUrl = "";
 
-    public BannerViewModel(Context mContext){
+    public GoodsActivityBannerViewModel(Context mContext){
         this.context = mContext;
         fetchNavigationBanner();
     }
