@@ -3,6 +3,10 @@
     package="com.guangzhou.wendy.mallappframework">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".view.MyApplication"
@@ -27,7 +31,13 @@
         <activity
             android:name=".view.Activity.MainActivity"
             android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.Activity.QrCodeScanActivity"
+            android:theme="@style/NoTitleTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.Activity.NavigationActivity" />
+        </activity>
     </application>
 
 </manifest>

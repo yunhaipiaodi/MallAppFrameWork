@@ -1,5 +1,6 @@
 package com.guangzhou.wendy.mallappframework.view.Activity;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -37,6 +39,31 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.qr_scan:
+                gotoQrCodeScanActivity();
+                return true;
+            case R.id.tool_search:
+                gotoSearchActivity();
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
+    //跳转到二维码扫描页面
+    private void gotoQrCodeScanActivity(){
+        Intent intent = new Intent(this,QrCodeScanActivity.class);
+        startActivity(intent);
+    }
+
+    //跳转到搜寻页面
+    private void gotoSearchActivity(){
+
+    }
+
     private void init(){
         setToolbar();
         setSelectPage();
@@ -57,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             @Override
             public void onPageSelected(int position) {
                 bottomNavigation.setCurrentItem(position);

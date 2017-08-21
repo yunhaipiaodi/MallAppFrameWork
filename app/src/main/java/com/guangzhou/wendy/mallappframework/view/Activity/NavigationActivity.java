@@ -9,7 +9,7 @@ import android.support.v7.widget.CardView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.guangzhou.wendy.mallappframework.R;
 import com.guangzhou.wendy.mallappframework.model.NavBannerItem;
-import com.guangzhou.wendy.mallappframework.viewmodel.Observable.NavigationBannerModel;
+import com.guangzhou.wendy.mallappframework.viewmodel.Observable.NavigationBannerViewModel;
 
 
 import java.util.ArrayList;
@@ -29,6 +29,8 @@ public class NavigationActivity extends AppCompatActivity implements Observer{
         setContentView(R.layout.activity_navigation);
         init();
     }
+
+
 
     private void init(){
         bgaBanner = (BGABanner)findViewById(R.id.banner_guide_content);
@@ -52,7 +54,7 @@ public class NavigationActivity extends AppCompatActivity implements Observer{
                 NavigationActivity.this.finish();
             }
         });
-        new NavigationBannerModel(this).addObserver(this);
+        new NavigationBannerViewModel(this).addObserver(this);
     }
 
     //点击banner跳转到浏览器
@@ -77,8 +79,8 @@ public class NavigationActivity extends AppCompatActivity implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        if(o instanceof NavigationBannerModel){
-            NavigationBannerModel model = (NavigationBannerModel)o;
+        if(o instanceof NavigationBannerViewModel){
+            NavigationBannerViewModel model = (NavigationBannerViewModel)o;
             List<NavBannerItem> navBannerItems = model.getData();
             List<String> tips = new ArrayList<>();
             bgaBanner.setData(R.layout.item_fresco,navBannerItems,tips);

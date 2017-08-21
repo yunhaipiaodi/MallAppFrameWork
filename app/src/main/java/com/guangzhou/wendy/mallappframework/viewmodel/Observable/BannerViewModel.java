@@ -2,14 +2,16 @@ package com.guangzhou.wendy.mallappframework.viewmodel.Observable;
 
 import android.content.Context;
 
+import com.guangzhou.wendy.mallappframework.model.Banner;
+import com.guangzhou.wendy.mallappframework.model.BannerItem;
 import com.guangzhou.wendy.mallappframework.model.NavBannerItem;
 import com.guangzhou.wendy.mallappframework.model.NavigationBanner;
+import com.guangzhou.wendy.mallappframework.web.RetorfitServiceFactory.BannerFactory;
 import com.guangzhou.wendy.mallappframework.web.RetorfitServiceFactory.NavBannerFactory;
 
 import java.util.List;
 import java.util.Observable;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
@@ -17,39 +19,39 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by yunhaipiaodi on 2017/8/10.
+ * Created by yunhaipiaodi on 2017/8/17.
  */
 
-public class NavigationBannerModel extends Observable {
+public class BannerViewModel extends Observable {
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
-    private List<NavBannerItem> navBanners;
+    private List<BannerItem> Banners;
     private Context context;
 
-    private String requestUrl = "http://120.24.61.188:9999/getNavigationBanner.php";
+    private String requestUrl = "http://120.24.61.188:9999/getBanner.php";
 
-    public NavigationBannerModel(Context mContext){
+    public BannerViewModel(Context mContext){
         this.context = mContext;
         fetchNavigationBanner();
     }
 
-    private void setData(List<NavBannerItem> mNavBanners){
-        this.navBanners = mNavBanners;
+    private void setData(List<BannerItem> Banners){
+        this.Banners = Banners;
         setChanged();
         notifyObservers();
     }
 
 
-    public List<NavBannerItem> getData(){return this.navBanners;}
+    public List<BannerItem> getData(){return this.Banners;}
 
     private void fetchNavigationBanner(){
-        compositeDisposable.add(new NavBannerFactory().create()
+        compositeDisposable.add(new BannerFactory().create()
                 .getObservable(requestUrl)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<NavigationBanner>() {
+                .subscribe(new Consumer<Banner>() {
                     @Override
-                    public void accept(@NonNull NavigationBanner navigationBanner) throws Exception {
-                        setData(navigationBanner.navBanner);
+                    public void accept(@NonNull Banner banner) throws Exception {
+                        setData(banner.bannerList);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
