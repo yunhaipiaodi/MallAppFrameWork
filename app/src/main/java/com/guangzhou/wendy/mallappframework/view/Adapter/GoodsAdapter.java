@@ -1,6 +1,7 @@
 package com.guangzhou.wendy.mallappframework.view.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,9 +12,9 @@ import android.widget.Toast;
 import com.guangzhou.wendy.mallappframework.R;
 import com.guangzhou.wendy.mallappframework.databinding.GoodsItemBinding;
 import com.guangzhou.wendy.mallappframework.model.GoodsItem;
+import com.guangzhou.wendy.mallappframework.view.Activity.GoodsActivity;
 import com.guangzhou.wendy.mallappframework.viewmodel.BaseObservable.GoodsItemViewModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -97,7 +98,9 @@ public class GoodsAdapter extends RecyclerView.Adapter<GoodsAdapter.ViewHolder> 
 
     //跳转到商品展示页面
     private void transToGoodsActivity(String goodsId){
-
+        Intent intent = new Intent(mContext, GoodsActivity.class);
+        intent.putExtra("goods_id",goodsId);
+        mContext.startActivity(intent);
     }
 
     //将商品添加至购物车

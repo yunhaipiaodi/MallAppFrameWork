@@ -122,7 +122,6 @@ public class HomeFragment extends Fragment {
                                        RecyclerView parent, RecyclerView.State state) {
 
                 outRect.bottom = 16;
-
                 if (parent.getChildAdapterPosition(view) % 2 == 0){
                     //排列在左侧的项
                     outRect.left = 16;
