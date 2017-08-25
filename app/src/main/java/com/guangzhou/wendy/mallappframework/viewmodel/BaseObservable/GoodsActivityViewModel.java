@@ -2,10 +2,13 @@ package com.guangzhou.wendy.mallappframework.viewmodel.BaseObservable;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
+import android.widget.Toast;
 
 import com.guangzhou.wendy.mallappframework.model.BannerItem;
 import com.guangzhou.wendy.mallappframework.model.GoodsDetail;
+import com.guangzhou.wendy.mallappframework.model.GoodsOrder;
 import com.guangzhou.wendy.mallappframework.web.RetorfitServiceFactory.GoodsDetailFactory;
+import com.guangzhou.wendy.mallappframework.web.RetorfitServiceFactory.GoodsOrderFactory;
 
 import java.util.List;
 
@@ -67,6 +70,13 @@ public class GoodsActivityViewModel extends BaseObservable {
                         throwable.printStackTrace();
                     }
                 }));
+    }
+
+    public void fetchGoodsOrder(GoodsOrder goodsOrder){
+        String result = new GoodsOrderFactory()
+                .create()
+                .postGoodsOrderData(goodsOrder);
+        Toast.makeText(context,result,Toast.LENGTH_SHORT).show();
     }
 
     public void reset(){

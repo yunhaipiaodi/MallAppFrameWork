@@ -64,7 +64,8 @@
         tools:showIn="@layout/activity_goods">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +74,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:textColor="@color/colorAccent"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:text="￥"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -83,25 +84,68 @@
                 android:layout_toRightOf="@id/rmb_mark"
                 android:layout_marginLeft="8dp"
                 android:textColor="@color/colorAccent"
-                android:textSize="34sp"
+                android:textSize="24sp"
                 android:text="@{GoodsActivityData.price}"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/goods_name"
-                android:textColor="#000000"
-                android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_below="@id/rmb_mark"
                 android:layout_alignLeft="@id/rmb_mark"
+                android:layout_marginRight="16dp"
                 android:text="@{GoodsActivityData.name}"/>
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:id = "@+id/cut_off_line"
                 android:layout_marginTop="16dp"
                 android:layout_below="@id/goods_name"
                 android:layout_alignLeft="@id/goods_name"
-                android:src="#e0e0e0"/>
+                android:src="@color/grey"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recent_title"
+                android:layout_below="@id/cut_off_line"
+                android:layout_marginTop="16dp"
+                android:layout_alignLeft="@id/cut_off_line"
+                android:text="送至"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recent_address"
+                android:layout_toRightOf="@id/recent_title"
+                android:layout_alignBottom="@id/recent_title"
+                android:layout_marginLeft="8dp"
+                android:text="广东 > 广州 > 天河区"
+                android:textColor="@color/black"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/select_address_btn"
+                android:src="@drawable/ic_dots_horizontal_grey600_24dp"
+                android:background="?attr/selectableItemBackground"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@id/recent_address"
+                android:layout_marginRight="16dp"
+                android:padding="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/recent_address"
+                android:layout_below="@id/recent_address"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="预计明天到达"
+                />
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

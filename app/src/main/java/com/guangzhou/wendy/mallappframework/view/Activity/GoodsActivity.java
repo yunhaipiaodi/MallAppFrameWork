@@ -1,6 +1,7 @@
 package com.guangzhou.wendy.mallappframework.view.Activity;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,13 +9,21 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.guangzhou.wendy.mallappframework.R;
 import com.guangzhou.wendy.mallappframework.databinding.ActivityGoodsBinding;
 import com.guangzhou.wendy.mallappframework.model.BannerItem;
+import com.guangzhou.wendy.mallappframework.model.GoodsOrder;
 import com.guangzhou.wendy.mallappframework.viewmodel.BaseObservable.GoodsActivityViewModel;
+import com.lljjcoder.city_20170724.CityPickerView;
+import com.lljjcoder.city_20170724.bean.CityBean;
+import com.lljjcoder.city_20170724.bean.DistrictBean;
+import com.lljjcoder.city_20170724.bean.ProvinceBean;
 
 import java.util.List;
 
@@ -22,11 +31,13 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 
 public class GoodsActivity extends AppCompatActivity {
 
+    CityPickerView cityPicker;
+    ActivityGoodsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ActivityGoodsBinding binding =
+        binding =
                 DataBindingUtil.setContentView(this,R.layout.activity_goods);
         setSupportActionBar(binding.toolbarDefault);
         if(getSupportActionBar() != null){
@@ -38,8 +49,7 @@ public class GoodsActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                binding.getGoodsActivityData().fetchGoodsOrder(getGoodsOrder());
             }
         });
 
@@ -51,6 +61,78 @@ public class GoodsActivity extends AppCompatActivity {
             }
         }));
 
+        binding.selectAddressBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cityPicker.show();
+            }
+        });
+
+        setCityPicker();
+    }
+
+    private GoodsOrder getGoodsOrder(){
+        String goodsId = binding.getGoodsActivityData().getId();
+        String count = "1";
+        String totalPrice = binding.getGoodsActivityData().getPrice();
+        String userId = "";
+        String userAddrId = "";
+        String sendAddr = binding.recentAddress.getText().toString();
+        String stateId = "0";
+        return new GoodsOrder(goodsId,count,totalPrice,userId,userAddrId,sendAddr,stateId);
+    }
+
+    private void setCityPicker(){
+        cityPicker = new CityPickerView.Builder(this)
+                .textSize(20)
+                .title("地址选择")
+                .backgroundPop(0xa0000000)
+                .titleBackgroundColor("#234Dfa")
+                .titleTextColor("#000000")
+                .backgroundPop(0xa0000000)
+                .confirTextColor("#000000")
+                .cancelTextColor("#000000")
+                .province("广东省")
+                .city("广州市")
+                .district("天河区")
+                .textColor(Color.parseColor("#000000"))
+                .provinceCyclic(true)
+                .cityCyclic(false)
+                .districtCyclic(false)
+                .visibleItemsCount(7)
+                .itemPadding(10)
+                .onlyShowProvinceAndCity(false)
+                .build();
+        //监听方法，获取选择结果
+        cityPicker.setOnCityItemClickListener(new CityPickerView.OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean provinceBean, CityBean cityBean, DistrictBean districtBean) {
+                String address = provinceBean.getName()+">"+cityBean.getName()+">"+districtBean.getName();
+                binding.recentAddress.setText(address);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.goods_activity_toolbar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.heart_it:
+                Toast.makeText(this,"like it",Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return  super.onOptionsItemSelected(menuItem);
+        }
     }
 
 
