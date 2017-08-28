@@ -1,17 +1,18 @@
 package com.guangzhou.wendy.mallappframework.web.RetorfitService;
 
+import com.guangzhou.wendy.mallappframework.model.CommitOrderResult;
 import com.guangzhou.wendy.mallappframework.model.GoodsOrder;
 
-import retrofit2.http.Body;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Url;
+
 
 /**
  * Created by yunhaipiaodi on 2017/8/25.
  */
 
 public interface GoodsOrderService {
-    @POST("/commit_order.php")
-    @FormUrlEncoded
-    public String postGoodsOrderData(@Body GoodsOrder goodsOrder);
+    @GET
+    public Call<CommitOrderResult> getGoodsOrderData(@Url String url);
 }

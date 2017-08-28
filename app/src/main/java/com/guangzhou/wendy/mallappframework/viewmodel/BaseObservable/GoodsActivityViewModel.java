@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.widget.Toast;
 
 import com.guangzhou.wendy.mallappframework.model.BannerItem;
+import com.guangzhou.wendy.mallappframework.model.CommitOrderResult;
 import com.guangzhou.wendy.mallappframework.model.GoodsDetail;
 import com.guangzhou.wendy.mallappframework.model.GoodsOrder;
 import com.guangzhou.wendy.mallappframework.web.RetorfitServiceFactory.GoodsDetailFactory;
@@ -17,6 +18,13 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by yunhaipiaodi on 2017/8/21.
@@ -72,11 +80,30 @@ public class GoodsActivityViewModel extends BaseObservable {
                 }));
     }
 
-    public void fetchGoodsOrder(GoodsOrder goodsOrder){
-        String result = new GoodsOrderFactory()
-                .create()
-                .postGoodsOrderData(goodsOrder);
-        Toast.makeText(context,result,Toast.LENGTH_SHORT).show();
+    public void fetchGoodsOrder(String requestUrl){
+        try{
+            new GoodsOrderFactory()
+                    .create()
+                    .getGoodsOrderData(requestUrl)
+                    .enqueue(new Callback<CommitOrderResult>() {
+                        @Override
+                        public void onResponse(Call<CommitOrderResult> call, Response<CommitOrderResult> response) {
+                            try{
+                                String result = response.body().result;
+                                Toast.makeText(context,result,Toast.LENGTH_SHORT).show();
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<CommitOrderResult> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void reset(){

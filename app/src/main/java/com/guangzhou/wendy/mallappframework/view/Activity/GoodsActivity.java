@@ -25,6 +25,7 @@ import com.lljjcoder.city_20170724.bean.CityBean;
 import com.lljjcoder.city_20170724.bean.DistrictBean;
 import com.lljjcoder.city_20170724.bean.ProvinceBean;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
@@ -49,7 +50,7 @@ public class GoodsActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                binding.getGoodsActivityData().fetchGoodsOrder(getGoodsOrder());
+                binding.getGoodsActivityData().fetchGoodsOrder(getGoodsCommitUrl());
             }
         });
 
@@ -71,15 +72,28 @@ public class GoodsActivity extends AppCompatActivity {
         setCityPicker();
     }
 
-    private GoodsOrder getGoodsOrder(){
+    private String getGoodsCommitUrl(){
         String goodsId = binding.getGoodsActivityData().getId();
         String count = "1";
         String totalPrice = binding.getGoodsActivityData().getPrice();
-        String userId = "";
-        String userAddrId = "";
-        String sendAddr = binding.recentAddress.getText().toString();
+        String userId = "-1";
+        String userAddrId = "-1";
+        String sendAddr= "-1";
+        try{
+            sendAddr = URLEncoder.encode(binding.recentAddress.getText().toString(),"utf8");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         String stateId = "0";
-        return new GoodsOrder(goodsId,count,totalPrice,userId,userAddrId,sendAddr,stateId);
+        String url = String.format("http://120.24.61.188:9999/commit_order.php?goods_id=%s&" +
+                "count=%s&" +
+                "total_price=%s&" +
+                "user_id=%s&" +
+                "user_addr_id=%s&" +
+                "send_addr=%s&" +
+                "state_id=%s&",goodsId,count,totalPrice,userId,userAddrId, sendAddr,stateId);
+        return url;
     }
 
     private void setCityPicker(){

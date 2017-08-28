@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:id="@+id/add_shopping_cart"
-                android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                android:src="@drawable/album_add_cart"
                 android:background="?android:selectableItemBackground"
                 android:layout_below="@id/goods_name"
                 android:layout_alignParentRight="true" />

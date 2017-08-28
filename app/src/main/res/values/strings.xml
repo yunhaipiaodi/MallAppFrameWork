@@ -2,8 +2,8 @@
     <string name="app_name">MallAppFrameWork</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">首页</string>
-    <string name="title_shopping_cart">购物架</string>
-    <string name="title_notifications">消息</string>
+    <string name="title_shopping_cart">购物车</string>
+    <string name="title_type">分类</string>
     <string name="title_me">我</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -102,4 +102,7 @@
     </string>
     <string name="action_settings">Settings</string>
 
+    <string name="all_orders">查看全部订单 &gt;</string>
+
+    <string name="enter_content">&gt;</string>
 </resources>
